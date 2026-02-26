@@ -8,9 +8,11 @@ A production-grade cross-platform mobile application designed for window washing
 
 ## Project Overview
 
-B.CLEAN is an enterprise-level mobile application built for the window washing and exterior cleaning industry. The platform provides comprehensive tools for business owners, sales teams, and field technicians to manage every aspect of their operations from a unified mobile interface.
+B.CLEAN is an enterprise-level mobile application built for the window washing and exterior cleaning industry, developed by B Clean 4 Step Window Washing LLC. The platform provides comprehensive tools for business owners, sales teams, and field technicians to manage every aspect of their operations from a unified mobile interface.
 
 The application addresses critical operational challenges including scheduling conflicts, sales territory management, payment processing, customer relationship management, and field documentation. Built with scalability and security as foundational principles, B.CLEAN is designed to support growing businesses from single-operator services to multi-location enterprises.
+
+**Official Website:** https://kendychae.github.io/B-CLEAN/
 
 **Target Platforms:**
 
@@ -173,7 +175,7 @@ All code, designs, assets, and documentation contained in this repository are pr
 
 **Unauthorized copying, modification, distribution, or commercial use of any materials in this repository is strictly prohibited.**
 
-© 2026 B.CLEAN. All Rights Reserved.
+© 2026 B Clean 4 Step Window Washing LLC. All Rights Reserved.
 
 ### License
 
@@ -187,13 +189,13 @@ This repository and its contents are NOT open-source software. The code is made 
 - You may not distribute or sublicense this code
 - Reading the code for educational purposes does not grant any usage rights
 
-Written permission from B.CLEAN is required for any use beyond viewing. For licensing inquiries, contact the business development team.
+Written permission from B Clean 4 Step Window Washing LLC is required for any use beyond viewing. For licensing inquiries, contact the business development team.
 
 ### Disclaimer
 
 **THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND**
 
-B.CLEAN makes no guarantees, representations, or warranties regarding:
+B Clean 4 Step Window Washing LLC makes no guarantees, representations, or warranties regarding:
 
 - Fitness for any particular purpose
 - Merchantability or quality
@@ -203,7 +205,7 @@ B.CLEAN makes no guarantees, representations, or warranties regarding:
 
 **Limitation of Liability:**
 
-- B.CLEAN shall not be liable for any direct, indirect, incidental, or consequential damages
+- B Clean 4 Step Window Washing LLC shall not be liable for any direct, indirect, incidental, or consequential damages
 - Users assume all risk associated with use of this software
 - No guarantee of App Store approval or ongoing availability
 - Not responsible for data loss, business interruption, or financial losses
@@ -469,14 +471,14 @@ For detailed submission instructions, refer to `DEPLOYMENT.md`.
 
 For licensing, partnership opportunities, or enterprise solutions:
 
-**Email:** business@bclean.app  
-**Website:** https://bclean.app (coming soon)
+**Email:** dbingsbusiness@gmail.com  
+**Website:** https://kendychae.github.io/B-CLEAN/
 
 ### Technical Support
 
 For technical issues or implementation questions from authorized parties:
 
-**Email:** support@bclean.app  
+**Email:** dbingsbusiness@gmail.com  
 **Documentation:** Refer to inline code documentation and schema reference
 
 ---
@@ -493,4 +495,5 @@ Built with industry-leading technologies:
 ---
 
 **B.CLEAN** - Professional Window Washing Operations Software  
-© 2026 B.CLEAN. All Rights Reserved.
+© 2026 B Clean 4 Step Window Washing LLC. All Rights Reserved.  
+**Website:** https://kendychae.github.io/B-CLEAN/
