@@ -1,0 +1,79 @@
+{
+  "expo": {
+    "name": "B.CLEAN",
+    "slug": "b-clean-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bclean.windowwashing",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "B.CLEAN needs your location to show nearby customers and provide navigation.",
+        "NSLocationAlwaysUsageDescription": "B.CLEAN needs your location to track job locations and provide real-time updates.",
+        "NSCameraUsageDescription": "B.CLEAN needs camera access to capture before/after photos of completed jobs.",
+        "NSPhotoLibraryUsageDescription": "B.CLEAN needs photo library access to save and manage job photos.",
+        "NSCalendarsUsageDescription": "B.CLEAN needs calendar access to sync job schedules with your calendar.",
+        "NSContactsUsageDescription": "B.CLEAN needs contacts access to quickly add customer information."
+      },
+      "config": {
+        "googleMapsApiKey": "YOUR_IOS_GOOGLE_MAPS_API_KEY"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.bclean.windowwashing",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_CALENDAR",
+        "WRITE_CALENDAR"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_ANDROID_GOOGLE_MAPS_API_KEY"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-location",
+      "expo-camera",
+      "expo-image-picker",
+      "expo-calendar",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#ffffff"
+        }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.bclean.windowwashing"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "YOUR_EAS_PROJECT_ID"
+      }
+    }
+  }
+}

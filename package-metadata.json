@@ -1,0 +1,27 @@
+{
+  "name": "B.CLEAN",
+  "description": "Window Washing Operations & Sales Suite",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kendychae/B.CLEAN.APP.git"
+  },
+  "keywords": [
+    "window-washing",
+    "mobile-app",
+    "crm",
+    "scheduling",
+    "sales",
+    "field-service",
+    "react-native",
+    "expo",
+    "firebase"
+  ],
+  "author": "Kenneth Chae",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/kendychae/B.CLEAN.APP/issues"
+  },
+  "homepage": "https://github.com/kendychae/B.CLEAN.APP#readme"
+}

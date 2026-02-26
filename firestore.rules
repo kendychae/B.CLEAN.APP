@@ -1,0 +1,103 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && getUserRole() == 'admin';
+    }
+    
+    function isSalesperson() {
+      return isSignedIn() && getUserRole() == 'salesperson';
+    }
+    
+    function isTechnician() {
+      return isSignedIn() && getUserRole() == 'technician';
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || isOwner(userId);
+      allow delete: if isAdmin();
+    }
+    
+    // Customers collection
+    match /customers/{customerId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin() || isSalesperson() || isTechnician();
+      allow update: if isAdmin() || isSalesperson();
+      allow delete: if isAdmin();
+    }
+    
+    // Jobs collection
+    match /jobs/{jobId} {
+      allow read: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.assignedTo == request.auth.uid ||
+        resource.data.createdBy == request.auth.uid
+      );
+      allow create: if isSignedIn() && (isAdmin() || isSalesperson());
+      allow update: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.assignedTo == request.auth.uid
+      );
+      allow delete: if isAdmin();
+    }
+    
+    // Availability collection
+    match /availability/{availabilityId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.userId == request.auth.uid
+      );
+      allow delete: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.userId == request.auth.uid
+      );
+    }
+    
+    // Map pins collection
+    match /mapPins/{pinId} {
+      // Real-time updates for all authenticated users
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (isAdmin() || isSalesperson());
+      allow update: if isSignedIn() && (isAdmin() || isSalesperson());
+      allow delete: if isAdmin();
+    }
+    
+    // Invoices collection
+    match /invoices/{invoiceId} {
+      allow read: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.createdBy == request.auth.uid
+      );
+      allow create: if isSignedIn() && (isAdmin() || isTechnician());
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // Notifications collection
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}
