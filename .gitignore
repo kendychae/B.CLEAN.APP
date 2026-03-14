@@ -17,6 +17,11 @@ web-build/
 .env.local
 .env.production
 
+# Deployment credentials
+google-play-service-account.json
+*.p12
+*.pem
+
 # IDE
 .vscode/
 .idea/

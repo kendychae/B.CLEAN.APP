@@ -1,30 +1,14 @@
-import * as Calendar from 'expo-calendar';
-import { Platform } from 'react-native';
+// Calendar integration temporarily disabled
+// To enable: npm install expo-calendar and add "expo-calendar" to app.json plugins
 
 export const requestCalendarPermission = async () => {
-  const { status } = await Calendar.requestCalendarPermissionsAsync();
-  return status === 'granted';
+  console.log('Calendar integration disabled - expo-calendar not installed');
+  return false;
 };
 
 export const getDefaultCalendar = async () => {
-  try {
-    const hasPermission = await requestCalendarPermission();
-    if (!hasPermission) {
-      throw new Error('Calendar permission denied');
-    }
-
-    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-    
-    // Find primary calendar
-    const primaryCalendar = calendars.find(
-      (cal) => cal.isPrimary || cal.allowsModifications
-    );
-
-    return primaryCalendar?.id || calendars[0]?.id;
-  } catch (error) {
-    console.error('Error getting default calendar:', error);
-    throw error;
-  }
+  console.log('Calendar integration disabled - expo-calendar not installed');
+  return null;
 };
 
 export const addJobToCalendar = async (
@@ -34,20 +18,30 @@ export const addJobToCalendar = async (
   location?: string,
   notes?: string
 ) => {
-  try {
-    const hasPermission = await requestCalendarPermission();
-    if (!hasPermission) {
-      throw new Error('Calendar permission denied');
-    }
+  console.log('Calendar integration disabled - expo-calendar not installed');
+  console.log('Would have added event:', { title, startDate, endDate, location, notes });
+  return null;
+};
 
-    const calendarId = await getDefaultCalendar();
-    if (!calendarId) {
-      throw new Error('No calendar available');
-    }
+export const updateCalendarEvent = async (
+  eventId: string,
+  updates: {
+    title?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+    notes?: string;
+  }
+) => {
+  console.log('Calendar integration disabled - expo-calendar not installed');
+  return;
+};
 
-    const eventId = await Calendar.createEventAsync(calendarId, {
-      title,
-      startDate,
+export const deleteCalendarEvent = async (eventId: string) => {
+  console.log('Calendar integration disabled - expo-calendar not installed');
+  return;
+};
+
       endDate,
       location,
       notes,

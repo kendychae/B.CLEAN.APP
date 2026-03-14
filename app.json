@@ -48,14 +48,10 @@
         }
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "plugins": [
       "expo-location",
       "expo-camera",
       "expo-image-picker",
-      "expo-calendar",
       [
         "expo-notifications",
         {
