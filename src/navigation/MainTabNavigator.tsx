@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@contexts/AuthContext';
-import { UserRole } from '@types/index';
+import { UserRole } from '@appTypes/index';
 
 // Screens
 import DashboardScreen from '@screens/dashboard/DashboardScreen';

@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Customer, Job, JobStatus, PaymentStatus, User, UserRole } from '@types/index';
+import { Customer, Job, JobStatus, PaymentStatus, User, UserRole } from '@appTypes/index';
 import { StackScreenProps } from '@react-navigation/stack';
 import { JobsStackParamList } from '@navigation/types';
 import { scheduleJobReminder } from '@services/notifications';

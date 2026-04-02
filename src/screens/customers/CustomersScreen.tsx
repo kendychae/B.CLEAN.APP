@@ -4,7 +4,7 @@ import { Searchbar, Card, Text, FAB, ActivityIndicator, Chip } from 'react-nativ
 import { collection, query, onSnapshot, where } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Customer, UserRole } from '@types/index';
+import { Customer, UserRole } from '@appTypes/index';
 
 export default function CustomersScreen({ navigation }: any) {
   const { user } = useAuth();

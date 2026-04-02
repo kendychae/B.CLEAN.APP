@@ -6,7 +6,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Customer } from '@types/index';
+import { Customer } from '@appTypes/index';
 import { geocodeAddress } from '@services/location';
 import { StackScreenProps } from '@react-navigation/stack';
 import { CustomersStackParamList } from '@navigation/types';

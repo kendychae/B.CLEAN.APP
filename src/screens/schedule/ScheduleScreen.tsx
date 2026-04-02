@@ -5,7 +5,7 @@ import { Text, Card, Chip, FAB, ActivityIndicator, Button } from 'react-native-p
 import { collection, query, where, onSnapshot, Timestamp, getDocs } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Job, JobStatus, UserRole, Availability } from '@types/index';
+import { Job, JobStatus, UserRole, Availability } from '@appTypes/index';
 
 export default function ScheduleScreen({ navigation }: any) {
   const { user } = useAuth();

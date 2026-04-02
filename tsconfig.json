@@ -35,7 +35,7 @@
       "@utils/*": [
         "src/utils/*"
       ],
-      "@types/*": [
+      "@appTypes/*": [
         "src/types/*"
       ],
       "@navigation/*": [

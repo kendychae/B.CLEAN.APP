@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Text, TextInput, Button, Title, SegmentedButtons } from 'react-native-paper';
 import { useAuth } from '@contexts/AuthContext';
-import { UserRole } from '@types/index';
+import { UserRole } from '@appTypes/index';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@navigation/types';
 

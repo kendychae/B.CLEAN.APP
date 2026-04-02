@@ -7,7 +7,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Availability } from '@types/index';
+import { Availability } from '@appTypes/index';
 
 export default function AvailabilityScreen() {
   const { user } = useAuth();

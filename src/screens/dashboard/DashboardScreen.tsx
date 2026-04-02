@@ -4,7 +4,7 @@ import { Card, Text, ActivityIndicator } from 'react-native-paper';
 import { collection, query, onSnapshot, where, Timestamp } from 'firebase/firestore';
 import { useAuth } from '@contexts/AuthContext';
 import { getAnalytics } from '@services/analytics';
-import { Analytics, Job, JobStatus } from '@types/index';
+import { Analytics, Job, JobStatus } from '@appTypes/index';
 
 const { width } = Dimensions.get('window');
 

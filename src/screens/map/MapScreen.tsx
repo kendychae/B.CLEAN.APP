@@ -8,7 +8,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { MapPin, PinType, UserRole } from '@types/index';
+import { MapPin, PinType, UserRole } from '@appTypes/index';
 import { getCurrentLocation } from '@services/location';
 
 export default function MapScreen({ navigation }: any) {

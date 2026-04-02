@@ -4,7 +4,7 @@ import { Text, Card, Button, Chip, Divider, ActivityIndicator } from 'react-nati
 import { doc, getDoc, collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Customer, Job, JobStatus, UserRole } from '@types/index';
+import { Customer, Job, JobStatus, UserRole } from '@appTypes/index';
 import { makePhoneCall, sendSMS, sendEmail } from '@services/communication';
 import { openMapsNavigation } from '@services/location';
 import { StackScreenProps } from '@react-navigation/stack';

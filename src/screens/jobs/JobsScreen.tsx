@@ -4,7 +4,7 @@ import { Card, Text, Chip, ActivityIndicator, FAB, SegmentedButtons } from 'reac
 import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Job, JobStatus, UserRole } from '@types/index';
+import { Job, JobStatus, UserRole } from '@appTypes/index';
 
 const STATUS_FILTERS = ['all', JobStatus.SCHEDULED, JobStatus.IN_PROGRESS, JobStatus.COMPLETED];
 

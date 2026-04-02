@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { List, Avatar, Button, Divider, Text } from 'react-native-paper';
 import { useAuth } from '@contexts/AuthContext';
-import { UserRole } from '@types/index';
+import { UserRole } from '@appTypes/index';
 
 export default function ProfileScreen({ navigation }: any) {
   const { user, signOut } = useAuth();

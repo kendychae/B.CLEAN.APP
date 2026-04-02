@@ -1,6 +1,6 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@config/firebase';
-import { Analytics, Job, Customer, JobStatus } from '@types/index';
+import { Analytics, Job, Customer, JobStatus } from '@appTypes/index';
 
 export const getAnalytics = async (): Promise<Analytics> => {
   try {

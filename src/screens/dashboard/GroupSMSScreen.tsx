@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import { Text, TextInput, Button, Card, Chip, ActivityIndicator } from 'react-native-paper';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@config/firebase';
-import { Customer } from '@types/index';
+import { Customer } from '@appTypes/index';
 import { sendGroupSMS } from '@services/communication';
 
 type FilterType = 'all' | 'active' | 'zip';
