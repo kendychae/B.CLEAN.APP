@@ -22,7 +22,6 @@ let storage: FirebaseStorage;
 
 export const initializeFirebase = async () => {
   try {
-    // Initialize Firebase only if not already initialized
     if (getApps().length === 0) {
       app = initializeApp(firebaseConfig);
     } else {
@@ -32,10 +31,7 @@ export const initializeFirebase = async () => {
     auth = getAuth(app);
     db = getFirestore(app);
     storage = getStorage(app);
-
-    console.log('Firebase initialized successfully');
   } catch (error) {
-    console.error('Firebase initialization error:', error);
     throw error;
   }
 };

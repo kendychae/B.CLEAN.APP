@@ -9,7 +9,7 @@ import {
 import { doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Job, JobStatus, PaymentStatus, UserRole } from '@appTypes/index';
+import { Job, JobStatus, UserRole } from '@appTypes/index';
 import { openMapsNavigation } from '@services/location';
 import { takePicture } from '@services/photos';
 import { uploadJobPhoto } from '@services/photos';

@@ -94,7 +94,6 @@ export default function RegisterScreen({ navigation }: Props) {
           value={role}
           onValueChange={(val) => setRole(val as UserRole)}
           buttons={[
-            { value: UserRole.ADMIN, label: 'Admin' },
             { value: UserRole.SALESPERSON, label: 'Sales' },
             { value: UserRole.TECHNICIAN, label: 'Cleaner' },
           ]}

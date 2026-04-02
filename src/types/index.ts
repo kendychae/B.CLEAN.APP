@@ -51,14 +51,6 @@ export enum JobStatus {
   CANCELLED = 'cancelled',
 }
 
-// Payment Status
-export enum PaymentStatus {
-  UNPAID = 'unpaid',
-  PAID = 'paid',
-  PENDING = 'pending',
-  REFUNDED = 'refunded',
-}
-
 // Job Type
 export interface Job {
   id: string;
@@ -71,7 +63,6 @@ export interface Job {
   duration: number; // in minutes
   status: JobStatus;
   price: number;
-  paymentStatus: PaymentStatus;
   notes?: string;
   beforePhotos?: string[];
   afterPhotos?: string[];

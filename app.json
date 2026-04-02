@@ -58,12 +58,6 @@
           "icon": "./assets/notification-icon.png",
           "color": "#ffffff"
         }
-      ],
-      [
-        "@stripe/stripe-react-native",
-        {
-          "merchantIdentifier": "merchant.com.bclean.windowwashing"
-        }
       ]
     ],
     "extra": {

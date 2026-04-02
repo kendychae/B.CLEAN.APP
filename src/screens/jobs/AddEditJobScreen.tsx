@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
-import { Customer, Job, JobStatus, PaymentStatus, User, UserRole } from '@appTypes/index';
+import { Customer, Job, JobStatus, User, UserRole } from '@appTypes/index';
 import { StackScreenProps } from '@react-navigation/stack';
 import { JobsStackParamList } from '@navigation/types';
 import { scheduleJobReminder } from '@services/notifications';
@@ -146,7 +146,6 @@ export default function AddEditJobScreen({ route, navigation }: Props) {
         duration: parseInt(duration, 10) || 90,
         status: JobStatus.SCHEDULED,
         price: parseFloat(price),
-        paymentStatus: PaymentStatus.UNPAID,
         notes,
         updatedAt: Timestamp.now(),
       };

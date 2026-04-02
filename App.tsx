@@ -31,22 +31,11 @@ export default function App() {
 
   useEffect(() => {
     const initialize = async () => {
-      console.log('Starting app initialization...');
       try {
-        // Initialize Firebase
-        console.log('Initializing Firebase...');
         await initializeFirebase();
-        console.log('Firebase initialized!');
-        
-        // Setup push notifications (skip on web)
-        console.log('Setting up notifications...');
         await setupNotifications();
-        console.log('Notifications setup complete!');
-        
         setIsReady(true);
-        console.log('App ready!');
       } catch (error) {
-        console.error('App initialization error:', error);
         setInitError(error instanceof Error ? error.message : 'Unknown error');
         setIsReady(true); // Still allow app to load
       }

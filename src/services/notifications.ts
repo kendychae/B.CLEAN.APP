@@ -31,7 +31,6 @@ export const setupNotifications = async () => {
       })
     ).data;
 
-    console.log('Push notification token:', token);
     return token;
   } catch (error) {
     console.error('Error setting up notifications:', error);
