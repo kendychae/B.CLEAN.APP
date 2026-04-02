@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAuth } from '@contexts/AuthContext';
@@ -9,12 +10,7 @@ import RegisterScreen from '@screens/auth/RegisterScreen';
 
 // Main Navigation
 import MainTabNavigator from './MainTabNavigator';
-
-export type RootStackParamList = {
-  Login: undefined;
-  Register: undefined;
-  Main: undefined;
-};
+import { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -22,7 +18,11 @@ export default function Navigation() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return null; // Or a loading screen
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#007AFF" />
+      </View>
+    );
   }
 
   return (
@@ -40,3 +40,12 @@ export default function Navigation() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+});

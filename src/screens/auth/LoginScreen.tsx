@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { Text, TextInput, Button, Title } from 'react-native-paper';
 import { useAuth } from '@contexts/AuthContext';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '@navigation/types';
 
-export default function LoginScreen() {
+type Props = StackScreenProps<RootStackParamList, 'Login'>;
+
+export default function LoginScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -67,6 +71,14 @@ export default function LoginScreen() {
         >
           Sign In
         </Button>
+
+        <Button
+          mode="text"
+          onPress={() => navigation.navigate('Register')}
+          style={styles.linkButton}
+        >
+          New employee? Create account
+        </Button>
       </View>
     </KeyboardAvoidingView>
   );
@@ -102,8 +114,11 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingVertical: 8,
   },
+  linkButton: {
+    marginTop: 8,
+  },
   error: {
-    color: 'red',
+    color: '#FF3B30',
     textAlign: 'center',
     marginTop: 8,
   },
