@@ -24,7 +24,7 @@
         "NSContactsUsageDescription": "B.CLEAN needs contacts access to quickly add customer information."
       },
       "config": {
-        "googleMapsApiKey": "YOUR_IOS_GOOGLE_MAPS_API_KEY"
+        "googleMapsApiKey": "AIzaSyA3Sq_5bbCf6pgPq_PJWCluk6oE-H8xUy8"
       }
     },
     "android": {
@@ -44,7 +44,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR_ANDROID_GOOGLE_MAPS_API_KEY"
+          "apiKey": "AIzaSyDvQ1s4kFtp-auJGuKvbcyKNHWW6Efm3iM"
         }
       }
     },
