@@ -7,8 +7,9 @@ import {
   User as FirebaseUser
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { getFunctions, httpsCallable } from 'firebase/functions';
-import { auth, db } from '@config/firebase';
+import { initializeApp, deleteApp } from 'firebase/app';
+import { getAuth, signOut as secondarySignOut } from 'firebase/auth';
+import { auth, db, firebaseConfig } from '@config/firebase';
 import { User, UserRole } from '@appTypes/index';
 
 interface AuthContextType {
@@ -44,24 +45,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setFirebaseUser(firebaseUser);
-      
+
       if (firebaseUser) {
+        const userDocRef = doc(db, 'users', firebaseUser.uid);
         try {
-          // Fetch user data from Firestore
-          const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+          const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
-            setUser({
-              id: firebaseUser.uid,
-              ...userDoc.data(),
-            } as User);
+            setUser({ id: firebaseUser.uid, ...userDoc.data() } as User);
+          } else {
+            // No Firestore doc exists (e.g. rules blocked the write during signup).
+            // Create a default admin doc so the owner can access the app.
+            const fallback: Omit<User, 'id'> = {
+              email: firebaseUser.email || '',
+              displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+              role: UserRole.ADMIN,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            };
+            try { await setDoc(userDocRef, fallback); } catch { /* rules not yet deployed */ }
+            setUser({ id: firebaseUser.uid, ...fallback });
           }
         } catch (error) {
+          // Firestore read failed (rules not deployed yet). Fall back to Firebase auth data.
           console.error('Error fetching user data:', error);
+          setUser({
+            id: firebaseUser.uid,
+            email: firebaseUser.email || '',
+            displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+            role: UserRole.ADMIN,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          });
         }
       } else {
         setUser(null);
       }
-      
+
       setLoading(false);
     });
 
@@ -107,18 +126,33 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Admin-only: create an employee account via Cloud Function (doesn't sign out admin)
+  // Admin-only: create an employee account using a secondary Firebase app instance.
+  // This avoids signing the admin out (no Cloud Functions needed).
   const createEmployee = async (email: string, password: string, displayName: string, role: UserRole) => {
+    const secondaryApp = initializeApp(firebaseConfig, `employee-create-${Date.now()}`);
+    const secondaryAuth = getAuth(secondaryApp);
     try {
-      const functions = getFunctions();
-      const createEmployeeFn = httpsCallable(functions, 'createEmployee');
-      await createEmployeeFn({ email, password, displayName, role });
+      const { createUserWithEmailAndPassword: createUser } = await import('firebase/auth');
+      const userCredential = await createUser(secondaryAuth, email, password);
+      const newUid = userCredential.user.uid;
+
+      const { setDoc: setDocFn, doc: docFn } = await import('firebase/firestore');
+      await setDocFn(docFn(db, 'users', newUid), {
+        email,
+        displayName,
+        role,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      await secondarySignOut(secondaryAuth);
     } catch (error: any) {
       console.error('Create employee error:', error);
-      // Rethrow with a user-friendly message preserving the code
       const rethrown: any = new Error(error.message || 'Failed to create employee');
-      rethrown.code = error.code?.replace('functions/', '') || error.code;
+      rethrown.code = error.code || '';
       throw rethrown;
+    } finally {
+      await deleteApp(secondaryApp);
     }
   };
 

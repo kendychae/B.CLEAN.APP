@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Card, Text, ActivityIndicator } from 'react-native-paper';
-import { collection, query, onSnapshot, where, Timestamp } from 'firebase/firestore';
+import { collection, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
 import { getAnalytics } from '@services/analytics';
 import { Analytics, Job, JobStatus } from '@appTypes/index';
 
-const { width } = Dimensions.get('window');
-
 export default function DashboardScreen({ navigation }: any) {
   const { user } = useAuth();
+  const { width } = useWindowDimensions();
+  const cardWidth = (width - 48) / 2;
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [todayJobs, setTodayJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,25 +93,25 @@ export default function DashboardScreen({ navigation }: any) {
 
       {/* Stats Grid */}
       <View style={styles.grid}>
-        <Card style={styles.statCard}>
+        <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
             <Text style={styles.statLabel}>Total Revenue</Text>
             <Text style={styles.statValue}>${analytics?.totalRevenue.toFixed(0) || '0'}</Text>
           </Card.Content>
         </Card>
-        <Card style={styles.statCard}>
+        <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
             <Text style={styles.statLabel}>Total Jobs</Text>
             <Text style={styles.statValue}>{analytics?.totalJobs || 0}</Text>
           </Card.Content>
         </Card>
-        <Card style={styles.statCard}>
+        <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
             <Text style={styles.statLabel}>Completed</Text>
             <Text style={[styles.statValue, { color: '#34C759' }]}>{analytics?.completedJobs || 0}</Text>
           </Card.Content>
         </Card>
-        <Card style={styles.statCard}>
+        <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
             <Text style={styles.statLabel}>Active Customers</Text>
             <Text style={styles.statValue}>{analytics?.activeCustomers || 0}</Text>
@@ -192,8 +192,8 @@ const styles = StyleSheet.create({
   todayNum: { fontSize: 28, fontWeight: '800', color: '#fff' },
   todayLabel: { fontSize: 11, color: 'rgba(255,255,255,0.75)', marginTop: 2 },
   separator: { width: 1, height: 40, backgroundColor: 'rgba(255,255,255,0.3)' },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 8 },
-  statCard: { width: (width - 40) / 2, elevation: 1 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -4, marginBottom: 8 },
+  statCard: { margin: 4, elevation: 1 },
   statLabel: { fontSize: 12, color: '#8E8E93', marginBottom: 4 },
   statValue: { fontSize: 26, fontWeight: '800', color: '#4CBB17' },
   avgCard: { marginBottom: 16, elevation: 1 },
