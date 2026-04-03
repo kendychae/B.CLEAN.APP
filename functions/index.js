@@ -151,3 +151,47 @@ exports.calculateAnalytics = functions.pubsub
 
     return null;
   });
+
+// Create employee account without signing out the admin
+exports.createEmployee = functions.https.onCall(async (data, context) => {
+  // Must be authenticated and admin role
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'Must be signed in.');
+  }
+
+  const callerDoc = await admin.firestore().collection('users').doc(context.auth.uid).get();
+  if (!callerDoc.exists || callerDoc.data().role !== 'admin') {
+    throw new functions.https.HttpsError('permission-denied', 'Only admins can create employees.');
+  }
+
+  const { email, password, displayName, role } = data;
+
+  if (!email || !password || !displayName || !role) {
+    throw new functions.https.HttpsError('invalid-argument', 'Missing required fields.');
+  }
+
+  try {
+    // Create Firebase Auth user (server-side, does not affect caller session)
+    const userRecord = await admin.auth().createUser({
+      email,
+      password,
+      displayName,
+    });
+
+    // Create Firestore user document
+    await admin.firestore().collection('users').doc(userRecord.uid).set({
+      email,
+      displayName,
+      role,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    return { uid: userRecord.uid, success: true };
+  } catch (error) {
+    if (error.code === 'auth/email-already-exists') {
+      throw new functions.https.HttpsError('already-exists', 'That email is already registered.');
+    }
+    throw new functions.https.HttpsError('internal', error.message);
+  }
+});

@@ -116,7 +116,7 @@ export default function AddEditCustomerScreen({ route, navigation }: Props) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -250,6 +250,6 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', gap: 8 },
   stateInput: { width: 80 },
   zipInput: { flex: 1 },
-  saveButton: { backgroundColor: '#007AFF', marginTop: 8 },
+  saveButton: { backgroundColor: '#4CBB17', marginTop: 8 },
   saveButtonContent: { paddingVertical: 6 },
 });

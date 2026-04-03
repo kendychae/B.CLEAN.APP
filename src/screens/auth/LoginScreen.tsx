@@ -26,7 +26,14 @@ export default function LoginScreen({ navigation }: Props) {
     try {
       await signIn(email, password);
     } catch (err: any) {
-      setError(err.message || 'Login failed');
+      const code = err.code || '';
+      if (code === 'auth/user-not-found' || code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
+        setError('Invalid email or password. Please try again.');
+      } else if (code === 'auth/too-many-requests') {
+        setError('Too many failed attempts. Please wait a moment and try again.');
+      } else {
+        setError(err.message || 'Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -99,7 +106,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 8,
-    color: '#007AFF',
+    color: '#4CBB17',
   },
   subtitle: {
     fontSize: 16,

@@ -30,7 +30,8 @@ service cloud.firestore {
     // Users collection
     match /users/{userId} {
       allow read: if isSignedIn();
-      allow create: if isAdmin();
+      // Allow a user to create their own profile document on signup
+      allow create: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
       allow update: if isAdmin() || isOwner(userId);
       allow delete: if isAdmin();
     }
@@ -43,13 +44,9 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
     
-    // Jobs collection
+    // Jobs collection - all signed-in users can read; app handles role-based filtering
     match /jobs/{jobId} {
-      allow read: if isSignedIn() && (
-        isAdmin() || 
-        resource.data.assignedTo == request.auth.uid ||
-        resource.data.createdBy == request.auth.uid
-      );
+      allow read: if isSignedIn();
       allow create: if isSignedIn() && (isAdmin() || isSalesperson());
       allow update: if isSignedIn() && (
         isAdmin() || 

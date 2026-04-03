@@ -7,6 +7,7 @@ import {
   User as FirebaseUser
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { getFunctions, httpsCallable } from 'firebase/functions';
 import { auth, db } from '@config/firebase';
 import { User, UserRole } from '@appTypes/index';
 
@@ -16,6 +17,7 @@ interface AuthContextType {
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, displayName: string, role: UserRole) => Promise<void>;
+  createEmployee: (email: string, password: string, displayName: string, role: UserRole) => Promise<void>;
   signOut: () => Promise<void>;
   hasPermission: (permission: string) => boolean;
 }
@@ -105,6 +107,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Admin-only: create an employee account via Cloud Function (doesn't sign out admin)
+  const createEmployee = async (email: string, password: string, displayName: string, role: UserRole) => {
+    try {
+      const functions = getFunctions();
+      const createEmployeeFn = httpsCallable(functions, 'createEmployee');
+      await createEmployeeFn({ email, password, displayName, role });
+    } catch (error: any) {
+      console.error('Create employee error:', error);
+      // Rethrow with a user-friendly message preserving the code
+      const rethrown: any = new Error(error.message || 'Failed to create employee');
+      rethrown.code = error.code?.replace('functions/', '') || error.code;
+      throw rethrown;
+    }
+  };
+
   const hasPermission = (permission: string): boolean => {
     if (!user) return false;
 
@@ -150,6 +167,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading,
     signIn,
     signUp,
+    createEmployee,
     signOut,
     hasPermission,
   };

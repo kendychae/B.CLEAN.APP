@@ -37,6 +37,9 @@ export default function JobsScreen({ navigation }: any) {
       data.sort((a, b) => b.scheduledDate.getTime() - a.scheduledDate.getTime());
       setJobs(data);
       setLoading(false);
+    }, (error) => {
+      console.error('Jobs snapshot error:', error);
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -44,7 +47,7 @@ export default function JobsScreen({ navigation }: any) {
 
   const getStatusColor = (status: JobStatus) => {
     switch (status) {
-      case JobStatus.SCHEDULED:    return '#007AFF';
+      case JobStatus.SCHEDULED:    return '#4CBB17';
       case JobStatus.IN_PROGRESS:  return '#FF9500';
       case JobStatus.COMPLETED:    return '#34C759';
       case JobStatus.CANCELLED:    return '#FF3B30';
@@ -92,7 +95,7 @@ export default function JobsScreen({ navigation }: any) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -148,8 +151,8 @@ const styles = StyleSheet.create({
   date: { fontSize: 14, color: '#3C3C43', marginBottom: 2 },
   time: { fontSize: 13, color: '#8E8E93' },
   price: { fontSize: 16, fontWeight: '700', color: '#34C759', marginTop: 4 },
-  assignee: { fontSize: 13, color: '#007AFF', marginTop: 2 },
+  assignee: { fontSize: 13, color: '#4CBB17', marginTop: 2 },
   empty: { flex: 1, alignItems: 'center', paddingTop: 60 },
   emptyText: { color: '#8E8E93', fontSize: 16 },
-  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#007AFF' },
+  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#4CBB17' },
 });

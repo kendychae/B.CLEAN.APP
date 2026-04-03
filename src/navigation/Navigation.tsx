@@ -20,7 +20,7 @@ export default function Navigation() {
   if (loading) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }

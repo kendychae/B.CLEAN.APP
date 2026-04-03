@@ -32,4 +32,5 @@ export type JobsStackParamList = {
 export type ProfileStackParamList = {
   ProfileHome: undefined;
   Availability: undefined;
+  AddEmployee: undefined;
 };

@@ -18,6 +18,7 @@ import JobDetailScreen from '@screens/jobs/JobDetailScreen';
 import AddEditJobScreen from '@screens/jobs/AddEditJobScreen';
 import ProfileScreen from '@screens/profile/ProfileScreen';
 import AvailabilityScreen from '@screens/profile/AvailabilityScreen';
+import RegisterScreen from '@screens/auth/RegisterScreen';
 
 import {
   DashboardStackParamList,
@@ -38,7 +39,7 @@ const Tab = createBottomTabNavigator();
 
 const stackScreenOptions = {
   headerStyle: { backgroundColor: '#fff' },
-  headerTintColor: '#007AFF',
+  headerTintColor: '#4CBB17',
   headerTitleStyle: { fontWeight: '600' as const },
 };
 
@@ -100,6 +101,7 @@ function ProfileStackScreen() {
     <ProfileStack.Navigator screenOptions={stackScreenOptions}>
       <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} options={{ title: 'Profile' }} />
       <ProfileStack.Screen name="Availability" component={AvailabilityScreen} options={{ title: 'My Availability' }} />
+      <ProfileStack.Screen name="AddEmployee" component={RegisterScreen} options={{ title: 'Add Employee' }} />
     </ProfileStack.Navigator>
   );
 }
@@ -122,7 +124,7 @@ export default function MainTabNavigator() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#007AFF',
+        tabBarActiveTintColor: '#4CBB17',
         tabBarInactiveTintColor: '#8E8E93',
         headerShown: false,
       })}

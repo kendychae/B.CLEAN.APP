@@ -42,11 +42,11 @@ export default function ScheduleScreen({ navigation }: any) {
       jobsData.forEach((job) => {
         const key = job.scheduledDate.toISOString().split('T')[0];
         const color = job.status === JobStatus.COMPLETED ? '#34C759' :
-          job.status === JobStatus.CANCELLED ? '#FF3B30' : '#007AFF';
+          job.status === JobStatus.CANCELLED ? '#FF3B30' : '#4CBB17';
         marked[key] = {
           marked: true,
           dotColor: color,
-          ...(selectedDate === key ? { selected: true, selectedColor: '#007AFF' } : {}),
+          ...(selectedDate === key ? { selected: true, selectedColor: '#4CBB17' } : {}),
         };
       });
       setMarkedDates(marked);
@@ -58,6 +58,9 @@ export default function ScheduleScreen({ navigation }: any) {
         );
         setDayJobs(filtered.sort((a, b) => a.scheduledTime.localeCompare(b.scheduledTime)));
       }
+    }, (error) => {
+      console.error('Schedule snapshot error:', error);
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -74,7 +77,7 @@ export default function ScheduleScreen({ navigation }: any) {
 
   const getStatusColor = (status: JobStatus) => {
     switch (status) {
-      case JobStatus.SCHEDULED: return '#007AFF';
+      case JobStatus.SCHEDULED: return '#4CBB17';
       case JobStatus.IN_PROGRESS: return '#FF9500';
       case JobStatus.COMPLETED: return '#34C759';
       case JobStatus.CANCELLED: return '#FF3B30';
@@ -96,7 +99,7 @@ export default function ScheduleScreen({ navigation }: any) {
       [selectedDate]: {
         ...(markedDates[selectedDate] || {}),
         selected: true,
-        selectedColor: '#007AFF',
+        selectedColor: '#4CBB17',
       },
     } : {}),
   };
@@ -104,7 +107,7 @@ export default function ScheduleScreen({ navigation }: any) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -116,10 +119,10 @@ export default function ScheduleScreen({ navigation }: any) {
         onDayPress={handleDayPress}
         current={today}
         theme={{
-          selectedDayBackgroundColor: '#007AFF',
-          todayTextColor: '#007AFF',
-          dotColor: '#007AFF',
-          arrowColor: '#007AFF',
+          selectedDayBackgroundColor: '#4CBB17',
+          todayTextColor: '#4CBB17',
+          dotColor: '#4CBB17',
+          arrowColor: '#4CBB17',
           textSectionTitleColor: '#8E8E93',
           monthTextColor: '#1C1C1E',
           dayTextColor: '#1C1C1E',
@@ -210,7 +213,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#E5E5EA',
   },
-  availabilityText: { fontSize: 14, color: '#007AFF', fontWeight: '500' },
+  availabilityText: { fontSize: 14, color: '#4CBB17', fontWeight: '500' },
   availabilityArrow: { fontSize: 18, color: '#8E8E93' },
   dayView: { flex: 1, backgroundColor: '#F5F5F5', paddingTop: 8 },
   dayTitle: { fontSize: 15, fontWeight: '600', color: '#1C1C1E', paddingHorizontal: 16, paddingBottom: 8 },
@@ -219,12 +222,12 @@ const styles = StyleSheet.create({
   jobRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   jobLeft: { flex: 1 },
   jobRight: { alignItems: 'flex-end', gap: 4 },
-  jobTime: { fontSize: 14, fontWeight: '700', color: '#007AFF' },
+  jobTime: { fontSize: 14, fontWeight: '700', color: '#4CBB17' },
   jobCustomer: { fontSize: 15, fontWeight: '600', color: '#1C1C1E', marginTop: 2 },
   jobTech: { fontSize: 13, color: '#8E8E93', marginTop: 2 },
   jobPrice: { fontSize: 15, fontWeight: '700', color: '#34C759' },
   statusChip: { height: 22 },
   chipText: { color: '#fff', fontSize: 10, fontWeight: '700' },
-  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#007AFF' },
+  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#4CBB17' },
 });
 

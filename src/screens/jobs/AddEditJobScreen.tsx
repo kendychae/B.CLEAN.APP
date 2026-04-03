@@ -160,8 +160,10 @@ export default function AddEditJobScreen({ route, navigation }: Props) {
           createdBy: user?.id || '',
           createdAt: Timestamp.now(),
         });
-        // Schedule push reminder
-        await scheduleJobReminder(newJob.id, scheduledDate);
+        // Schedule push reminder (non-blocking)
+        scheduleJobReminder(newJob.id, scheduledDate).catch((e) =>
+          console.warn('Could not schedule reminder:', e)
+        );
       }
 
       navigation.goBack();
@@ -177,7 +179,7 @@ export default function AddEditJobScreen({ route, navigation }: Props) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -372,6 +374,6 @@ const styles = StyleSheet.create({
   dateRow: { flexDirection: 'row', gap: 8 },
   dateButton: { flex: 1, borderColor: '#C7C7CC' },
   input: { marginBottom: 12 },
-  saveButton: { backgroundColor: '#007AFF', marginTop: 8 },
+  saveButton: { backgroundColor: '#4CBB17', marginTop: 8 },
   saveButtonContent: { paddingVertical: 6 },
 });

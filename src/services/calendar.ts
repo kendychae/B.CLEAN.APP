@@ -1,4 +1,4 @@
-﻿// Calendar integration disabled - expo-calendar not installed
+// Calendar integration disabled - expo-calendar not installed
 // To enable: npx expo install expo-calendar and add "expo-calendar" to app.json plugins
 
 export const requestCalendarPermission = async () => {

@@ -52,7 +52,7 @@ export default function MapScreen({ navigation }: any) {
       case PinType.CUSTOMER: return '#34C759';
       case PinType.LEAD: return '#FF9500';
       case PinType.DNC: return '#FF3B30';
-      default: return '#007AFF';
+      default: return '#4CBB17';
     }
   };
 
@@ -309,19 +309,19 @@ const styles = StyleSheet.create({
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   dot: { width: 12, height: 12, borderRadius: 6 },
   legendText: { fontSize: 12, color: '#1C1C1E', fontWeight: '500' },
-  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#007AFF' },
+  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#4CBB17' },
   modalContainer: { flex: 1, backgroundColor: '#F5F5F5' },
   modalHeader: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
     padding: 16, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#E5E5EA',
   },
   modalTitle: { fontSize: 18, fontWeight: '700', color: '#1C1C1E' },
-  cancelText: { fontSize: 16, color: '#007AFF' },
+  cancelText: { fontSize: 16, color: '#4CBB17' },
   modalContent: { padding: 16 },
   fieldLabel: { fontSize: 14, fontWeight: '600', color: '#1C1C1E', marginBottom: 8 },
   segmented: { marginBottom: 16 },
   modalInput: { marginBottom: 12 },
-  saveBtn: { backgroundColor: '#007AFF', marginTop: 8 },
+  saveBtn: { backgroundColor: '#4CBB17', marginTop: 8 },
   detailAddress: { fontSize: 16, color: '#1C1C1E', marginBottom: 8, lineHeight: 22 },
   detailInfo: { fontSize: 14, color: '#3C3C43', marginBottom: 4 },
   actionBtn: { marginBottom: 12 },

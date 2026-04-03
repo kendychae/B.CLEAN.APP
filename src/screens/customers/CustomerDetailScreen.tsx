@@ -79,7 +79,7 @@ export default function CustomerDetailScreen({ route, navigation }: Props) {
 
   const getStatusColor = (status: JobStatus) => {
     switch (status) {
-      case JobStatus.SCHEDULED: return '#007AFF';
+      case JobStatus.SCHEDULED: return '#4CBB17';
       case JobStatus.IN_PROGRESS: return '#FF9500';
       case JobStatus.COMPLETED: return '#34C759';
       case JobStatus.CANCELLED: return '#FF3B30';
@@ -92,7 +92,7 @@ export default function CustomerDetailScreen({ route, navigation }: Props) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -234,10 +234,10 @@ const styles = StyleSheet.create({
   revenue: { fontSize: 16, fontWeight: '700', color: '#34C759', marginTop: 8 },
   actionRow: { flexDirection: 'row', justifyContent: 'space-around', marginBottom: 12 },
   actionItem: { alignItems: 'center', gap: 4 },
-  circleBtn: { backgroundColor: '#007AFF', width: 56, height: 56, borderRadius: 28 },
+  circleBtn: { backgroundColor: '#4CBB17', width: 56, height: 56, borderRadius: 28 },
   actionLabel: { fontSize: 12, color: '#8E8E93', marginTop: 2 },
-  scheduleButton: { backgroundColor: '#007AFF', marginBottom: 8 },
-  editButton: { borderColor: '#007AFF', marginBottom: 8 },
+  scheduleButton: { backgroundColor: '#4CBB17', marginBottom: 8 },
+  editButton: { borderColor: '#4CBB17', marginBottom: 8 },
   divider: { marginVertical: 16 },
   sectionTitle: { fontSize: 17, fontWeight: '600', color: '#1C1C1E', marginBottom: 12 },
   emptyText: { color: '#8E8E93', fontStyle: 'italic', textAlign: 'center', marginTop: 20 },

@@ -46,7 +46,7 @@ export default function AvailabilityScreen() {
     return acc;
   }, {
     ...(selectedDate && !availability.find((a) => a.date.toISOString().split('T')[0] === selectedDate)
-      ? { [selectedDate]: { selected: true, selectedColor: '#007AFF' } }
+      ? { [selectedDate]: { selected: true, selectedColor: '#4CBB17' } }
       : {}),
   });
 
@@ -100,7 +100,7 @@ export default function AvailabilityScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -112,9 +112,9 @@ export default function AvailabilityScreen() {
         onDayPress={(day: { dateString: string }) => setSelectedDate(day.dateString)}
         minDate={today}
         theme={{
-          selectedDayBackgroundColor: '#007AFF',
-          todayTextColor: '#007AFF',
-          arrowColor: '#007AFF',
+          selectedDayBackgroundColor: '#4CBB17',
+          todayTextColor: '#4CBB17',
+          arrowColor: '#4CBB17',
           dotColor: '#FF3B30',
         }}
       />

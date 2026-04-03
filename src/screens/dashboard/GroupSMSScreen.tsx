@@ -88,7 +88,7 @@ export default function GroupSMSScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -107,7 +107,7 @@ export default function GroupSMSScreen() {
                 selected={filterType === type}
                 onPress={() => setFilterType(type)}
                 style={styles.filterChip}
-                selectedColor="#007AFF"
+                selectedColor="#4CBB17"
               >
                 {type === 'all' ? 'All Customers' : type === 'active' ? 'Active Only' : 'By Zip Code'}
               </Chip>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   messageInput: { marginBottom: 4 },
   charCount: { fontSize: 12, color: '#8E8E93', textAlign: 'right' },
   recipientItem: { fontSize: 14, color: '#3C3C43', paddingVertical: 4, borderBottomWidth: 1, borderBottomColor: '#F2F2F7' },
-  sendButton: { backgroundColor: '#007AFF', marginTop: 8 },
+  sendButton: { backgroundColor: '#4CBB17', marginTop: 8 },
   sendButtonContent: { paddingVertical: 6 },
   disclaimer: { fontSize: 12, color: '#8E8E93', textAlign: 'center', marginTop: 12, lineHeight: 18 },
 });

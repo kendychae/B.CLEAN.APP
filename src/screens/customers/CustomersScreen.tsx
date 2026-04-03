@@ -22,6 +22,9 @@ export default function CustomersScreen({ navigation }: any) {
       setCustomers(sorted);
       setFiltered(applySearch(sorted, searchQuery));
       setLoading(false);
+    }, (error) => {
+      console.error('Customers snapshot error:', error);
+      setLoading(false);
     });
     return unsubscribe;
   }, []);
@@ -81,7 +84,7 @@ export default function CustomersScreen({ navigation }: any) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -137,5 +140,5 @@ const styles = StyleSheet.create({
   revenue: { fontSize: 14, fontWeight: '600', color: '#34C759', marginTop: 4 },
   empty: { flex: 1, alignItems: 'center', paddingTop: 60 },
   emptyText: { color: '#8E8E93', fontSize: 16 },
-  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#007AFF' },
+  fab: { position: 'absolute', margin: 16, right: 0, bottom: 0, backgroundColor: '#4CBB17' },
 });

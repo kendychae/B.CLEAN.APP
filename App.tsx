@@ -5,6 +5,36 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider, MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+// B.CLEAN brand colors
+const PRIMARY_GREEN = '#4CBB17';
+const SECONDARY_GREEN = '#2D5A27';
+
+const lightTheme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: PRIMARY_GREEN,
+    secondary: SECONDARY_GREEN,
+    primaryContainer: '#E8F8DC',
+    secondaryContainer: '#C8E6C1',
+    onPrimary: '#FFFFFF',
+    onSecondary: '#FFFFFF',
+  },
+};
+
+const darkTheme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: PRIMARY_GREEN,
+    secondary: SECONDARY_GREEN,
+    primaryContainer: '#2D5A27',
+    secondaryContainer: '#1A3A16',
+    onPrimary: '#FFFFFF',
+    onSecondary: '#FFFFFF',
+  },
+};
 import * as Notifications from 'expo-notifications';
 
 import { AuthProvider } from '@contexts/AuthContext';
@@ -27,7 +57,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
   const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {
     const initialize = async () => {
@@ -47,7 +77,7 @@ export default function App() {
   if (!isReady) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
         <Text style={styles.loadingText}>Loading B.CLEAN...</Text>
         {initError && <Text style={styles.errorText}>Error: {initError}</Text>}
       </View>

@@ -17,7 +17,7 @@ import { sendSMS } from '@services/communication';
 import { scheduleJobReminder } from '@services/notifications';
 import { StackScreenProps } from '@react-navigation/stack';
 import { JobsStackParamList } from '@navigation/types';
-import SignatureScreen from 'react-native-signature-canvas';
+import SignatureScreen from '@components/SignaturePad';
 
 type Props = StackScreenProps<JobsStackParamList, 'JobDetail'>;
 
@@ -205,7 +205,7 @@ export default function JobDetailScreen({ route, navigation }: Props) {
 
   const getStatusColor = (status: JobStatus) => {
     switch (status) {
-      case JobStatus.SCHEDULED: return '#007AFF';
+      case JobStatus.SCHEDULED: return '#4CBB17';
       case JobStatus.IN_PROGRESS: return '#FF9500';
       case JobStatus.COMPLETED: return '#34C759';
       case JobStatus.CANCELLED: return '#FF3B30';
@@ -219,7 +219,7 @@ export default function JobDetailScreen({ route, navigation }: Props) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -316,7 +316,7 @@ export default function JobDetailScreen({ route, navigation }: Props) {
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Before Photos</Text>
             {canComplete && (
-              <IconButton icon="camera" size={22} iconColor="#007AFF" onPress={() => handleTakePhoto('before')} />
+              <IconButton icon="camera" size={22} iconColor="#4CBB17" onPress={() => handleTakePhoto('before')} />
             )}
           </View>
           {job.beforePhotos && job.beforePhotos.length > 0 ? (
@@ -337,7 +337,7 @@ export default function JobDetailScreen({ route, navigation }: Props) {
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>After Photos</Text>
             {canComplete && (
-              <IconButton icon="camera" size={22} iconColor="#007AFF" onPress={() => handleTakePhoto('after')} />
+              <IconButton icon="camera" size={22} iconColor="#4CBB17" onPress={() => handleTakePhoto('after')} />
             )}
           </View>
           {job.afterPhotos && job.afterPhotos.length > 0 ? (
@@ -440,9 +440,9 @@ const styles = StyleSheet.create({
   priceText: { fontSize: 22, fontWeight: '700', color: '#34C759', marginTop: 8 },
   techText: { fontSize: 14, color: '#8E8E93', marginTop: 4 },
   notesText: { fontSize: 14, color: '#3C3C43', marginTop: 8, fontStyle: 'italic' },
-  gpsButton: { backgroundColor: '#007AFF', marginBottom: 8 },
+  gpsButton: { backgroundColor: '#4CBB17', marginBottom: 8 },
   gpsContent: { paddingVertical: 4 },
-  editButton: { marginBottom: 8, borderColor: '#007AFF' },
+  editButton: { marginBottom: 8, borderColor: '#4CBB17' },
   divider: { marginVertical: 8 },
   actionButton: { marginBottom: 8, paddingVertical: 4 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },

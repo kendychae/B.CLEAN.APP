@@ -33,6 +33,8 @@ export default function DashboardScreen({ navigation }: any) {
         }
       });
       setTodayJobs(jobs.sort((a, b) => a.scheduledTime.localeCompare(b.scheduledTime)));
+    }, (error) => {
+      console.error('Dashboard jobs snapshot error:', error);
     });
 
     return unsubscribe;
@@ -52,7 +54,7 @@ export default function DashboardScreen({ navigation }: any) {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#4CBB17" />
       </View>
     );
   }
@@ -178,15 +180,12 @@ function getTimeOfDay() {
   return 'evening';
 }
 
-// Need to import db from firebase config
-import { db } from '@config/firebase';
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F5F5F5' },
   content: { padding: 16, paddingBottom: 40 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   greeting: { fontSize: 22, fontWeight: '700', color: '#1C1C1E', marginBottom: 16 },
-  todayCard: { marginBottom: 16, elevation: 1, backgroundColor: '#007AFF' },
+  todayCard: { marginBottom: 16, elevation: 1, backgroundColor: '#4CBB17' },
   todayTitle: { fontSize: 13, fontWeight: '600', color: 'rgba(255,255,255,0.8)', marginBottom: 12 },
   todayRow: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' },
   todayStat: { alignItems: 'center' },
@@ -196,9 +195,9 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 8 },
   statCard: { width: (width - 40) / 2, elevation: 1 },
   statLabel: { fontSize: 12, color: '#8E8E93', marginBottom: 4 },
-  statValue: { fontSize: 26, fontWeight: '800', color: '#007AFF' },
+  statValue: { fontSize: 26, fontWeight: '800', color: '#4CBB17' },
   avgCard: { marginBottom: 16, elevation: 1 },
-  avgValue: { fontSize: 28, fontWeight: '800', color: '#007AFF' },
+  avgValue: { fontSize: 28, fontWeight: '800', color: '#4CBB17' },
   sectionTitle: { fontSize: 16, fontWeight: '700', color: '#1C1C1E', marginBottom: 10, marginTop: 8 },
   actionsRow: { flexDirection: 'row', gap: 8, marginBottom: 16 },
   actionCard: {
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
   actionLabel: { fontSize: 12, fontWeight: '600', color: '#1C1C1E', textAlign: 'center' },
   jobCard: { marginBottom: 8, elevation: 1 },
   jobRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  jobTime: { fontSize: 13, fontWeight: '700', color: '#007AFF' },
+  jobTime: { fontSize: 13, fontWeight: '700', color: '#4CBB17' },
   jobCustomer: { fontSize: 15, fontWeight: '600', color: '#1C1C1E', marginTop: 2 },
   jobTech: { fontSize: 12, color: '#8E8E93', marginTop: 1 },
   jobPrice: { fontSize: 18, fontWeight: '700', color: '#34C759' },
