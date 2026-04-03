@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Alert, Modal, TextInput as RNTextInput, TouchableOpacity } from 'react-native';
-import { List, Avatar, Button, Divider, Text } from 'react-native-paper';
+import { View, StyleSheet, ScrollView, Alert, Modal, TextInput as RNTextInput, TouchableOpacity, Platform } from 'react-native';
+import { List, Avatar, Button, Divider, Text, Icon } from 'react-native-paper';
 import { useAuth } from '@contexts/AuthContext';
 import { UserRole } from '@appTypes/index';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -32,20 +32,24 @@ export default function ProfileScreen({ navigation }: any) {
   };
 
   const handleSignOut = async () => {
-    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Sign Out',
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            await signOut();
-          } catch (error) {
-            console.error('Sign out error:', error);
-          }
-        },
-      },
-    ]);
+    const doSignOut = async () => {
+      try {
+        await signOut();
+      } catch (error) {
+        console.error('Sign out error:', error);
+      }
+    };
+
+    if (Platform.OS === 'web') {
+      if (window.confirm('Are you sure you want to sign out?')) {
+        await doSignOut();
+      }
+    } else {
+      Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Sign Out', style: 'destructive', onPress: doSignOut },
+      ]);
+    }
   };
 
   const getRoleLabel = (role?: string) => {

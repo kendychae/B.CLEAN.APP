@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
-import { Card, Text, ActivityIndicator } from 'react-native-paper';
+import { Card, Text, ActivityIndicator, Icon } from 'react-native-paper';
 import { collection, query, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
@@ -131,15 +131,15 @@ export default function DashboardScreen({ navigation }: any) {
       <Text style={styles.sectionTitle}>Quick Actions</Text>
       <View style={styles.actionsRow}>
         <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('GroupSMS')}>
-          <Text style={styles.actionIcon}>💬</Text>
+          <Icon source="message-text-outline" size={28} color="#4CBB17" />
           <Text style={styles.actionLabel}>Group SMS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionCard} onPress={() => (navigation as any).navigate('Jobs', { screen: 'AddEditJob', params: {} })}>
-          <Text style={styles.actionIcon}>📋</Text>
+          <Icon source="briefcase-plus-outline" size={28} color="#4CBB17" />
           <Text style={styles.actionLabel}>New Job</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionCard} onPress={() => (navigation as any).navigate('Customers', { screen: 'AddEditCustomer', params: {} })}>
-          <Text style={styles.actionIcon}>👤</Text>
+          <Icon source="account-plus-outline" size={28} color="#4CBB17" />
           <Text style={styles.actionLabel}>Add Customer</Text>
         </TouchableOpacity>
       </View>
@@ -204,8 +204,7 @@ const styles = StyleSheet.create({
     flex: 1, backgroundColor: '#fff', borderRadius: 12, padding: 14, alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.08, shadowRadius: 2, elevation: 1,
   },
-  actionIcon: { fontSize: 24, marginBottom: 4 },
-  actionLabel: { fontSize: 12, fontWeight: '600', color: '#1C1C1E', textAlign: 'center' },
+  actionLabel: { fontSize: 12, fontWeight: '600', color: '#1C1C1E', textAlign: 'center', marginTop: 6 },
   jobCard: { marginBottom: 8, elevation: 1 },
   jobRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   jobTime: { fontSize: 13, fontWeight: '700', color: '#4CBB17' },
