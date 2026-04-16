@@ -5,6 +5,7 @@ import { collection, query, onSnapshot, where } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
 import { Customer, UserRole } from '@appTypes/index';
+import AdBanner from '@components/AdBanner';
 
 export default function CustomersScreen({ navigation }: any) {
   const { user } = useAuth();
@@ -104,6 +105,7 @@ export default function CustomersScreen({ navigation }: any) {
         renderItem={renderCustomer}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
+        ListFooterComponent={<AdBanner style={{ marginTop: 12, marginBottom: 16 }} />}
         ListEmptyComponent={
           <View style={styles.empty}>
             <Text style={styles.emptyText}>

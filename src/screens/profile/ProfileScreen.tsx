@@ -5,6 +5,7 @@ import { useAuth } from '@contexts/AuthContext';
 import { UserRole } from '@appTypes/index';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@config/firebase';
+import AdBanner from '@components/AdBanner';
 
 export default function ProfileScreen({ navigation }: any) {
   const { user, signOut } = useAuth();
@@ -146,6 +147,34 @@ export default function ProfileScreen({ navigation }: any) {
         </List.Section>
       )}
 
+      <List.Section>
+        <List.Subheader style={styles.subheader}>Legal</List.Subheader>
+        <View style={styles.section}>
+          <List.Item
+            title="Terms of Service"
+            left={(props) => <List.Icon {...props} icon="file-document-outline" color="#4CBB17" />}
+            right={(props) => <List.Icon {...props} icon="chevron-right" />}
+            onPress={() => navigation.navigate('TermsOfService')}
+          />
+          <Divider />
+          <List.Item
+            title="Privacy Policy"
+            left={(props) => <List.Icon {...props} icon="shield-lock-outline" color="#4CBB17" />}
+            right={(props) => <List.Icon {...props} icon="chevron-right" />}
+            onPress={() => navigation.navigate('PrivacyPolicy')}
+          />
+          <Divider />
+          <List.Item
+            title="License Agreement (EULA)"
+            left={(props) => <List.Icon {...props} icon="license" color="#4CBB17" />}
+            right={(props) => <List.Icon {...props} icon="chevron-right" />}
+            onPress={() => navigation.navigate('EULA')}
+          />
+        </View>
+      </List.Section>
+
+      <Text style={styles.versionText}>B.CLEAN v1.0.0</Text>
+
       <Button
         mode="contained"
         onPress={handleSignOut}
@@ -155,6 +184,8 @@ export default function ProfileScreen({ navigation }: any) {
       >
         Sign Out
       </Button>
+
+      <AdBanner style={{ marginTop: 16, marginBottom: 8 }} />
     </ScrollView>
   );
 }
@@ -171,6 +202,7 @@ const styles = StyleSheet.create({
   subheader: { fontSize: 13, color: '#8E8E93', fontWeight: '600', marginBottom: 0 },
   section: { backgroundColor: '#fff', borderRadius: 12, marginHorizontal: 16, overflow: 'hidden' },
   signOutButton: { margin: 20, marginTop: 12, paddingVertical: 4 },
+  versionText: { textAlign: 'center', color: '#8E8E93', fontSize: 12, marginTop: 16, marginBottom: 4 },
   // Phone modal
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center' },
   modalBox: { backgroundColor: '#fff', borderRadius: 16, padding: 24, width: '85%' },

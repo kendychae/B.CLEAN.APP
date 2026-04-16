@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Linking } from 'react-native';
 import { Text, TextInput, Button, Title } from 'react-native-paper';
 import { useAuth } from '@contexts/AuthContext';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -86,6 +86,18 @@ export default function LoginScreen({ navigation }: Props) {
         >
           New employee? Create account
         </Button>
+
+        <Text style={styles.legalText}>
+          By signing in, you agree to our{' '}
+          <Text style={styles.legalLink} onPress={() => Linking.openURL('https://bclean.app/terms')}>
+            Terms of Service
+          </Text>
+          {' '}and{' '}
+          <Text style={styles.legalLink} onPress={() => Linking.openURL('https://bclean.app/privacy')}>
+            Privacy Policy
+          </Text>
+          .
+        </Text>
       </View>
     </KeyboardAvoidingView>
   );
@@ -128,5 +140,16 @@ const styles = StyleSheet.create({
     color: '#FF3B30',
     textAlign: 'center',
     marginTop: 8,
+  },
+  legalText: {
+    fontSize: 12,
+    color: '#8E8E93',
+    textAlign: 'center',
+    marginTop: 20,
+    lineHeight: 18,
+  },
+  legalLink: {
+    color: '#4CBB17',
+    fontWeight: '600',
   },
 });

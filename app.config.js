@@ -3,6 +3,8 @@
 //   eas secret:create --name GOOGLE_MAPS_API_KEY_IOS --value <key>
 //   eas secret:create --name GOOGLE_MAPS_API_KEY_ANDROID --value <key>
 //   eas secret:create --name FIREBASE_API_KEY --value <key>
+//   eas secret:create --name ADMOB_APP_ID_IOS --value <key>
+//   eas secret:create --name ADMOB_APP_ID_ANDROID --value <key>
 //   (repeat for each FIREBASE_* and STRIPE_PUBLISHABLE_KEY)
 
 module.exports = ({ config }) => ({
@@ -21,6 +23,18 @@ module.exports = ({ config }) => ({
       },
     },
   },
+  plugins: [
+    ...(config.plugins || []).filter(
+      (p) => !(Array.isArray(p) && p[0] === 'react-native-google-mobile-ads')
+    ),
+    [
+      'react-native-google-mobile-ads',
+      {
+        androidAppId: process.env.ADMOB_APP_ID_ANDROID || 'ca-app-pub-XXXXX~XXXXX',
+        iosAppId: process.env.ADMOB_APP_ID_IOS || 'ca-app-pub-XXXXX~XXXXX',
+      },
+    ],
+  ],
   extra: {
     ...config.extra,
     // Firebase config — exposed to the app via expo-constants

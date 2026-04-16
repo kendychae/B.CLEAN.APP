@@ -113,6 +113,15 @@ export interface MapPin {
   updatedAt: Date;
 }
 
+// Payment Status
+export enum PaymentStatus {
+  UNPAID = 'unpaid',
+  PAID = 'paid',
+  PENDING = 'pending',
+  OVERDUE = 'overdue',
+  REFUNDED = 'refunded',
+}
+
 // Invoice Type
 export interface Invoice {
   id: string;

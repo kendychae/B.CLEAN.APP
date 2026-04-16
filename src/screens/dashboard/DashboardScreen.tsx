@@ -6,6 +6,7 @@ import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
 import { getAnalytics } from '@services/analytics';
 import { Analytics, Job, JobStatus } from '@appTypes/index';
+import AdBanner from '@components/AdBanner';
 
 export default function DashboardScreen({ navigation }: any) {
   const { user } = useAuth();
@@ -169,6 +170,8 @@ export default function DashboardScreen({ navigation }: any) {
           ))}
         </>
       )}
+
+      <AdBanner style={{ marginTop: 20 }} />
     </ScrollView>
   );
 }

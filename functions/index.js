@@ -15,20 +15,29 @@ exports.createPaymentIntent = functions.https.onCall(async (data, context) => {
 
   const { amount, currency, customerId } = data;
 
+  // Input validation
+  if (!amount || typeof amount !== 'number' || amount <= 0 || amount > 99999999) {
+    throw new functions.https.HttpsError('invalid-argument', 'Amount must be a positive number.');
+  }
+  if (customerId && typeof customerId !== 'string') {
+    throw new functions.https.HttpsError('invalid-argument', 'Invalid customer ID.');
+  }
+
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
+      amount: Math.round(amount), // ensure integer cents
       currency: currency || 'usd',
-      metadata: { customerId },
+      metadata: { customerId: customerId || '', userId: context.auth.uid },
     });
 
     return {
       paymentIntent: paymentIntent.client_secret,
-      ephemeralKey: null, // Add ephemeral key logic if needed
+      ephemeralKey: null,
       customer: customerId,
     };
   } catch (error) {
-    throw new functions.https.HttpsError('internal', error.message);
+    console.error('Stripe payment intent error:', error);
+    throw new functions.https.HttpsError('internal', 'Payment processing failed. Please try again.');
   }
 });
 
@@ -42,6 +51,17 @@ exports.sendNotification = functions.https.onCall(async (data, context) => {
   }
 
   const { userId, title, body, data: notificationData } = data;
+
+  // Input validation
+  if (!userId || typeof userId !== 'string') {
+    throw new functions.https.HttpsError('invalid-argument', 'Valid user ID is required.');
+  }
+  if (!title || typeof title !== 'string' || title.length > 200) {
+    throw new functions.https.HttpsError('invalid-argument', 'Valid title is required (max 200 chars).');
+  }
+  if (!body || typeof body !== 'string' || body.length > 1000) {
+    throw new functions.https.HttpsError('invalid-argument', 'Valid body is required (max 1000 chars).');
+  }
 
   try {
     // Get user's push token
@@ -76,7 +96,8 @@ exports.sendNotification = functions.https.onCall(async (data, context) => {
 
     return { success: true };
   } catch (error) {
-    throw new functions.https.HttpsError('internal', error.message);
+    console.error('Send notification error:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to send notification.');
   }
 });
 
@@ -192,6 +213,7 @@ exports.createEmployee = functions.https.onCall(async (data, context) => {
     if (error.code === 'auth/email-already-exists') {
       throw new functions.https.HttpsError('already-exists', 'That email is already registered.');
     }
-    throw new functions.https.HttpsError('internal', error.message);
+    console.error('Create employee error:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to create employee account.');
   }
 });

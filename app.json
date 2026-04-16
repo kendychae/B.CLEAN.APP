@@ -15,13 +15,18 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bclean.windowwashing",
+      "buildNumber": "1",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "B.CLEAN needs your location to show nearby customers and provide navigation.",
         "NSLocationAlwaysUsageDescription": "B.CLEAN needs your location to track job locations and provide real-time updates.",
         "NSCameraUsageDescription": "B.CLEAN needs camera access to capture before/after photos of completed jobs.",
         "NSPhotoLibraryUsageDescription": "B.CLEAN needs photo library access to save and manage job photos.",
         "NSCalendarsUsageDescription": "B.CLEAN needs calendar access to sync job schedules with your calendar.",
-        "NSContactsUsageDescription": "B.CLEAN needs contacts access to quickly add customer information."
+        "NSContactsUsageDescription": "B.CLEAN needs contacts access to quickly add customer information.",
+        "NSUserTrackingUsageDescription": "B.CLEAN uses this to deliver relevant ads that help keep the app affordable.",
+        "SKAdNetworkItems": [
+          { "SKAdNetworkIdentifier": "cstr6suwn9.skadnetwork" }
+        ]
       },
       "config": {
         "googleMapsApiKey": ""
@@ -33,6 +38,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.bclean.windowwashing",
+      "versionCode": 1,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
@@ -40,7 +46,8 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
         "READ_CALENDAR",
-        "WRITE_CALENDAR"
+        "WRITE_CALENDAR",
+        "com.google.android.gms.permission.AD_ID"
       ],
       "config": {
         "googleMaps": {
@@ -57,6 +64,13 @@
         {
           "icon": "./assets/notification-icon.png",
           "color": "#ffffff"
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-XXXXX~XXXXX",
+          "iosAppId": "ca-app-pub-XXXXX~XXXXX"
         }
       ]
     ],

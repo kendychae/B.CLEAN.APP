@@ -1,8 +1,20 @@
 import { Linking } from 'react-native';
 
+// Sanitize phone number: strip everything except digits and +
+const sanitizePhone = (phone: string): string => phone.replace(/[^\d+]/g, '');
+
+const validatePhone = (phone: string): boolean => {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length >= 7 && digits.length <= 15;
+};
+
 export const sendSMS = async (phoneNumber: string, message: string) => {
+  if (!validatePhone(phoneNumber)) {
+    throw new Error('Invalid phone number');
+  }
   try {
-    const url = `sms:${phoneNumber}${getSMSSeparator()}body=${encodeURIComponent(message)}`;
+    const cleaned = sanitizePhone(phoneNumber);
+    const url = `sms:${cleaned}${getSMSSeparator()}body=${encodeURIComponent(message)}`;
     const canOpen = await Linking.canOpenURL(url);
     
     if (canOpen) {
@@ -36,8 +48,12 @@ export const sendGroupSMS = async (phoneNumbers: string[], message: string) => {
 };
 
 export const makePhoneCall = async (phoneNumber: string) => {
+  if (!validatePhone(phoneNumber)) {
+    throw new Error('Invalid phone number');
+  }
   try {
-    const url = `tel:${phoneNumber}`;
+    const cleaned = sanitizePhone(phoneNumber);
+    const url = `tel:${cleaned}`;
     const canOpen = await Linking.canOpenURL(url);
     
     if (canOpen) {

@@ -33,4 +33,7 @@ export type ProfileStackParamList = {
   ProfileHome: undefined;
   Availability: undefined;
   AddEmployee: undefined;
+  TermsOfService: undefined;
+  PrivacyPolicy: undefined;
+  EULA: undefined;
 };

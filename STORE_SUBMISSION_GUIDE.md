@@ -567,7 +567,7 @@ eas build --platform all --profile production
    - OR provide demo credentials if needed
 
    **Ads:**
-   - Select "No" (unless you added ads)
+   - Select "Yes, it contains ads" (app uses Google AdMob banner ads)
 
    **Content ratings:**
    - Complete questionnaire
@@ -682,9 +682,11 @@ eas build --platform all --profile production
 While waiting for approval:
 
 1. **Create Privacy Policy**
-   - Required by both stores
-   - Use generator: https://www.freeprivacypolicy.com/
-   - Host on GitHub Pages or your website
+   - **Already included** in the app:
+     - In-app: Profile → Legal → Privacy Policy, Terms of Service, EULA
+     - Files: `PRIVACY_POLICY.md` and `TERMS_OF_SERVICE.md` in repo root
+   - Host the web version on GitHub Pages or your website at https://bclean.app/privacy
+   - Required URL for both app stores
    - Must cover:
      - Data collection (location, photos, contacts, etc.)
      - How data is used

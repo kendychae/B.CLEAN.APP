@@ -5,6 +5,7 @@ import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firest
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
 import { Job, JobStatus, UserRole } from '@appTypes/index';
+import AdBanner from '@components/AdBanner';
 
 const STATUS_FILTERS = ['all', JobStatus.SCHEDULED, JobStatus.IN_PROGRESS, JobStatus.COMPLETED];
 
@@ -119,6 +120,7 @@ export default function JobsScreen({ navigation }: any) {
         renderItem={renderJob}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
+        ListFooterComponent={<AdBanner style={{ marginTop: 12, marginBottom: 16 }} />}
         ListEmptyComponent={
           <View style={styles.empty}>
             <Text style={styles.emptyText}>No jobs found</Text>

@@ -19,6 +19,9 @@ import AddEditJobScreen from '@screens/jobs/AddEditJobScreen';
 import ProfileScreen from '@screens/profile/ProfileScreen';
 import AvailabilityScreen from '@screens/profile/AvailabilityScreen';
 import RegisterScreen from '@screens/auth/RegisterScreen';
+import TermsOfServiceScreen from '@screens/legal/TermsOfServiceScreen';
+import PrivacyPolicyScreen from '@screens/legal/PrivacyPolicyScreen';
+import EULAScreen from '@screens/legal/EULAScreen';
 
 import {
   DashboardStackParamList,
@@ -102,6 +105,9 @@ function ProfileStackScreen() {
       <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} options={{ title: 'Profile' }} />
       <ProfileStack.Screen name="Availability" component={AvailabilityScreen} options={{ title: 'My Availability' }} />
       <ProfileStack.Screen name="AddEmployee" component={RegisterScreen} options={{ title: 'Add Employee' }} />
+      <ProfileStack.Screen name="TermsOfService" component={TermsOfServiceScreen} options={{ headerShown: false }} />
+      <ProfileStack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: false }} />
+      <ProfileStack.Screen name="EULA" component={EULAScreen} options={{ headerShown: false }} />
     </ProfileStack.Navigator>
   );
 }
