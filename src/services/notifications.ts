@@ -25,10 +25,14 @@ export const setupNotifications = async () => {
       return;
     }
 
+    const projectId = Constants.expoConfig?.extra?.eas?.projectId;
+    if (!projectId) {
+      console.warn('expo-notifications: No EAS projectId configured. Push tokens unavailable in Expo Go.');
+      return;
+    }
+
     const token = (
-      await Notifications.getExpoPushTokenAsync({
-        projectId: Constants.expoConfig?.extra?.eas?.projectId,
-      })
+      await Notifications.getExpoPushTokenAsync({ projectId })
     ).data;
 
     return token;
@@ -62,6 +66,10 @@ export const scheduleJobReminder = async (jobId: string, scheduledDate: Date) =>
     // Schedule notification 1 hour before job
     const oneHourBefore = new Date(scheduledDate.getTime() - 60 * 60 * 1000);
     
+    if (oneHourBefore <= new Date()) {
+      return; // Don't schedule if time has already passed
+    }
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'Upcoming Job Reminder',
@@ -69,6 +77,7 @@ export const scheduleJobReminder = async (jobId: string, scheduledDate: Date) =>
         data: { jobId },
       },
       trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DATE,
         date: oneHourBefore,
       },
     });
@@ -77,7 +86,7 @@ export const scheduleJobReminder = async (jobId: string, scheduledDate: Date) =>
     const morningOf = new Date(scheduledDate);
     morningOf.setHours(8, 0, 0, 0);
     
-    if (morningOf < new Date()) {
+    if (morningOf <= new Date()) {
       return; // Don't schedule if time has passed
     }
 
@@ -88,6 +97,7 @@ export const scheduleJobReminder = async (jobId: string, scheduledDate: Date) =>
         data: { jobId },
       },
       trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DATE,
         date: morningOf,
       },
     });

@@ -7,20 +7,28 @@ service cloud.firestore {
       return request.auth != null;
     }
     
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
     function getUserRole() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+      return getUserData().role;
+    }
+    
+    function userDocExists() {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid));
     }
     
     function isAdmin() {
-      return isSignedIn() && getUserRole() == 'admin';
+      return isSignedIn() && userDocExists() && getUserRole() == 'admin';
     }
     
     function isSalesperson() {
-      return isSignedIn() && getUserRole() == 'salesperson';
+      return isSignedIn() && userDocExists() && getUserRole() == 'salesperson';
     }
     
     function isTechnician() {
-      return isSignedIn() && getUserRole() == 'technician';
+      return isSignedIn() && userDocExists() && getUserRole() == 'technician';
     }
     
     function isOwner(userId) {
@@ -39,16 +47,16 @@ service cloud.firestore {
     // Customers collection
     match /customers/{customerId} {
       allow read: if isSignedIn();
-      allow create: if isAdmin() || isSalesperson() || isTechnician();
-      allow update: if isAdmin() || isSalesperson();
+      allow create: if isSignedIn() && userDocExists() && (isAdmin() || isSalesperson() || isTechnician());
+      allow update: if isSignedIn() && userDocExists() && (isAdmin() || isSalesperson());
       allow delete: if isAdmin();
     }
     
     // Jobs collection - all signed-in users can read; app handles role-based filtering
     match /jobs/{jobId} {
       allow read: if isSignedIn();
-      allow create: if isSignedIn() && (isAdmin() || isSalesperson());
-      allow update: if isSignedIn() && (
+      allow create: if isSignedIn() && userDocExists() && (isAdmin() || isSalesperson());
+      allow update: if isSignedIn() && userDocExists() && (
         isAdmin() || 
         resource.data.assignedTo == request.auth.uid
       );

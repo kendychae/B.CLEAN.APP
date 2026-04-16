@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Searchbar, Card, Text, FAB, ActivityIndicator, Chip } from 'react-native-paper';
+import { Searchbar, Card, Text, FAB, ActivityIndicator, Chip, useTheme } from 'react-native-paper';
 import { collection, query, onSnapshot, where } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
@@ -9,6 +9,7 @@ import AdBanner from '@components/AdBanner';
 
 export default function CustomersScreen({ navigation }: any) {
   const { user } = useAuth();
+  const { colors } = useTheme();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [filtered, setFiltered] = useState<Customer[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -62,7 +63,7 @@ export default function CustomersScreen({ navigation }: any) {
     <Card style={styles.card} onPress={() => navigation.navigate('CustomerDetail', { customerId: item.id })}>
       <Card.Content>
         <View style={styles.cardHeader}>
-          <Text style={styles.name}>{item.name}</Text>
+          <Text style={[styles.name, { color: colors.onSurface }]}>{item.name}</Text>
           <Chip
             style={[styles.statusChip, { backgroundColor: getStatusColor(item.status) }]}
             textStyle={styles.chipText}
@@ -71,7 +72,7 @@ export default function CustomersScreen({ navigation }: any) {
             {item.status === 'dnc' ? 'DNC' : item.status}
           </Chip>
         </View>
-        <Text style={styles.phone}>{item.phone}</Text>
+        <Text style={[styles.phone, { color: colors.onSurfaceVariant }]}>{item.phone}</Text>
         <Text style={styles.address}>
           {item.address.street}, {item.address.city} {item.address.zipCode}
         </Text>
@@ -91,7 +92,7 @@ export default function CustomersScreen({ navigation }: any) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Searchbar
         placeholder="Search by name, phone, city, zip..."
         onChangeText={onChangeSearch}

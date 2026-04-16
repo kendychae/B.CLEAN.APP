@@ -1,7 +1,13 @@
 import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
-import { getAuth, Auth } from 'firebase/auth';
+import {
+  initializeAuth,
+  getAuth,
+  getReactNativePersistence,
+} from 'firebase/auth';
+import type { Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 
 // Firebase configuration
@@ -20,20 +26,36 @@ let auth: Auth;
 let db: Firestore;
 let storage: FirebaseStorage;
 
-export const initializeFirebase = async () => {
-  try {
-    if (getApps().length === 0) {
-      app = initializeApp(firebaseConfig);
-    } else {
-      app = getApps()[0];
-    }
+// Initialize immediately so exports are available on import
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
 
-    auth = getAuth(app);
-    db = getFirestore(app);
-    storage = getStorage(app);
-  } catch (error) {
-    throw error;
+try {
+  if (typeof getReactNativePersistence === 'function') {
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+  } else {
+    // Fallback: initialize without RN persistence
+    auth = initializeAuth(app);
   }
+} catch (e: any) {
+  // On hot reload, auth may already be initialized
+  try {
+    auth = getAuth(app);
+  } catch (_e) {
+    // Last resort: initialize without persistence
+    auth = initializeAuth(app);
+  }
+}
+db = getFirestore(app);
+storage = getStorage(app);
+
+export const initializeFirebase = async () => {
+  // Already initialized above, kept for backward compat
 };
 
 export { app, auth, db, storage, firebaseConfig };

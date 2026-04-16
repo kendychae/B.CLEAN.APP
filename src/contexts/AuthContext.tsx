@@ -4,11 +4,12 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   createUserWithEmailAndPassword,
+  getAuth,
+  signOut as secondarySignOut,
   User as FirebaseUser
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { initializeApp, deleteApp } from 'firebase/app';
-import { getAuth, signOut as secondarySignOut } from 'firebase/auth';
 import { auth, db, firebaseConfig } from '@config/firebase';
 import { User, UserRole } from '@appTypes/index';
 

@@ -33,6 +33,13 @@ const darkTheme = {
     secondaryContainer: '#1A3A16',
     onPrimary: '#FFFFFF',
     onSecondary: '#FFFFFF',
+    surface: '#1C1C1E',
+    surfaceVariant: '#2C2C2E',
+    background: '#000000',
+    onSurface: '#FFFFFF',
+    onSurfaceVariant: '#EBEBF5',
+    onBackground: '#FFFFFF',
+    outline: '#48484A',
   },
 };
 import * as Notifications from 'expo-notifications';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
-import { Card, Text, ActivityIndicator, Icon } from 'react-native-paper';
+import { Card, Text, ActivityIndicator, Icon, useTheme } from 'react-native-paper';
 import { collection, query, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
@@ -10,6 +10,7 @@ import AdBanner from '@components/AdBanner';
 
 export default function DashboardScreen({ navigation }: any) {
   const { user } = useAuth();
+  const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const cardWidth = (width - 48) / 2;
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
@@ -66,8 +67,8 @@ export default function DashboardScreen({ navigation }: any) {
     .reduce((sum, j) => sum + j.price, 0);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.greeting}>Good {getTimeOfDay()}, {user?.displayName?.split(' ')[0]}</Text>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.content}>
+      <Text style={[styles.greeting, { color: colors.onBackground }]}>Good {getTimeOfDay()}, {user?.displayName?.split(' ')[0]}</Text>
 
       {/* Today Summary */}
       <Card style={styles.todayCard}>
@@ -96,26 +97,26 @@ export default function DashboardScreen({ navigation }: any) {
       <View style={styles.grid}>
         <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
-            <Text style={styles.statLabel}>Total Revenue</Text>
+            <Text style={[styles.statLabel, { color: colors.onSurfaceVariant }]}>Total Revenue</Text>
             <Text style={styles.statValue}>${analytics?.totalRevenue.toFixed(0) || '0'}</Text>
           </Card.Content>
         </Card>
         <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
-            <Text style={styles.statLabel}>Total Jobs</Text>
-            <Text style={styles.statValue}>{analytics?.totalJobs || 0}</Text>
+            <Text style={[styles.statLabel, { color: colors.onSurfaceVariant }]}>Total Jobs</Text>
+            <Text style={[styles.statValue, { color: colors.onSurface }]}>{analytics?.totalJobs || 0}</Text>
           </Card.Content>
         </Card>
         <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
-            <Text style={styles.statLabel}>Completed</Text>
+            <Text style={[styles.statLabel, { color: colors.onSurfaceVariant }]}>Completed</Text>
             <Text style={[styles.statValue, { color: '#34C759' }]}>{analytics?.completedJobs || 0}</Text>
           </Card.Content>
         </Card>
         <Card style={[styles.statCard, { width: cardWidth }]}>
           <Card.Content>
-            <Text style={styles.statLabel}>Active Customers</Text>
-            <Text style={styles.statValue}>{analytics?.activeCustomers || 0}</Text>
+            <Text style={[styles.statLabel, { color: colors.onSurfaceVariant }]}>Active Customers</Text>
+            <Text style={[styles.statValue, { color: colors.onSurface }]}>{analytics?.activeCustomers || 0}</Text>
           </Card.Content>
         </Card>
       </View>
@@ -123,32 +124,32 @@ export default function DashboardScreen({ navigation }: any) {
       {/* Avg Job Value */}
       <Card style={styles.avgCard}>
         <Card.Content>
-          <Text style={styles.statLabel}>Average Job Value</Text>
+          <Text style={[styles.statLabel, { color: colors.onSurfaceVariant }]}>Average Job Value</Text>
           <Text style={styles.avgValue}>${analytics?.averageJobValue.toFixed(2) || '0.00'}</Text>
         </Card.Content>
       </Card>
 
       {/* Quick Actions */}
-      <Text style={styles.sectionTitle}>Quick Actions</Text>
+      <Text style={[styles.sectionTitle, { color: colors.onBackground }]}>Quick Actions</Text>
       <View style={styles.actionsRow}>
-        <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('GroupSMS')}>
+        <TouchableOpacity style={[styles.actionCard, { backgroundColor: colors.surface }]} onPress={() => navigation.navigate('GroupSMS')}>
           <Icon source="message-text-outline" size={28} color="#4CBB17" />
-          <Text style={styles.actionLabel}>Group SMS</Text>
+          <Text style={[styles.actionLabel, { color: colors.onSurface }]}>Group SMS</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionCard} onPress={() => (navigation as any).navigate('Jobs', { screen: 'AddEditJob', params: {} })}>
+        <TouchableOpacity style={[styles.actionCard, { backgroundColor: colors.surface }]} onPress={() => (navigation as any).navigate('Jobs', { screen: 'AddEditJob', params: {} })}>
           <Icon source="briefcase-plus-outline" size={28} color="#4CBB17" />
-          <Text style={styles.actionLabel}>New Job</Text>
+          <Text style={[styles.actionLabel, { color: colors.onSurface }]}>New Job</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionCard} onPress={() => (navigation as any).navigate('Customers', { screen: 'AddEditCustomer', params: {} })}>
+        <TouchableOpacity style={[styles.actionCard, { backgroundColor: colors.surface }]} onPress={() => (navigation as any).navigate('Customers', { screen: 'AddEditCustomer', params: {} })}>
           <Icon source="account-plus-outline" size={28} color="#4CBB17" />
-          <Text style={styles.actionLabel}>Add Customer</Text>
+          <Text style={[styles.actionLabel, { color: colors.onSurface }]}>Add Customer</Text>
         </TouchableOpacity>
       </View>
 
       {/* Today's Jobs */}
       {todayJobs.length > 0 && (
         <>
-          <Text style={styles.sectionTitle}>Today's Schedule</Text>
+          <Text style={[styles.sectionTitle, { color: colors.onBackground }]}>Today's Schedule</Text>
           {todayJobs.map((job) => (
             <TouchableOpacity
               key={job.id}
@@ -159,7 +160,7 @@ export default function DashboardScreen({ navigation }: any) {
                   <View style={styles.jobRow}>
                     <View>
                       <Text style={styles.jobTime}>{job.scheduledTime}</Text>
-                      <Text style={styles.jobCustomer}>{job.customerName}</Text>
+                      <Text style={[styles.jobCustomer, { color: colors.onSurface }]}>{job.customerName}</Text>
                       <Text style={styles.jobTech}>{job.assignedToName}</Text>
                     </View>
                     <Text style={styles.jobPrice}>${job.price.toFixed(0)}</Text>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Card, Text, Chip, ActivityIndicator, FAB, SegmentedButtons } from 'react-native-paper';
+import { Card, Text, Chip, ActivityIndicator, FAB, SegmentedButtons, useTheme } from 'react-native-paper';
 import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
@@ -11,6 +11,7 @@ const STATUS_FILTERS = ['all', JobStatus.SCHEDULED, JobStatus.IN_PROGRESS, JobSt
 
 export default function JobsScreen({ navigation }: any) {
   const { user } = useAuth();
+  const { colors } = useTheme();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -74,7 +75,7 @@ export default function JobsScreen({ navigation }: any) {
     <Card style={styles.card} onPress={() => navigation.navigate('JobDetail', { jobId: item.id })}>
       <Card.Content>
         <View style={styles.cardHeader}>
-          <Text style={styles.customerName}>{item.customerName}</Text>
+          <Text style={[styles.customerName, { color: colors.onSurface }]}>{item.customerName}</Text>
           <Chip
             style={[styles.statusChip, { backgroundColor: getStatusColor(item.status) }]}
             textStyle={styles.chipText}
@@ -83,7 +84,7 @@ export default function JobsScreen({ navigation }: any) {
             {getStatusLabel(item.status)}
           </Chip>
         </View>
-        <Text style={styles.date}>{item.scheduledDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</Text>
+        <Text style={[styles.date, { color: colors.onSurfaceVariant }]}>{item.scheduledDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</Text>
         <Text style={styles.time}>{item.scheduledTime} · {item.duration} min</Text>
         <Text style={styles.price}>${item.price.toFixed(2)}</Text>
         {user?.role === UserRole.ADMIN && item.assignedToName && (
@@ -102,7 +103,7 @@ export default function JobsScreen({ navigation }: any) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <SegmentedButtons
         value={statusFilter}
         onValueChange={setStatusFilter}

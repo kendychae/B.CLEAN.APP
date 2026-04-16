@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { Text, Card, Chip, FAB, ActivityIndicator, Button } from 'react-native-paper';
+import { Text, Card, Chip, FAB, ActivityIndicator, Button, useTheme } from 'react-native-paper';
 import { collection, query, where, onSnapshot, Timestamp, getDocs } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
@@ -9,6 +9,7 @@ import { Job, JobStatus, UserRole, Availability } from '@appTypes/index';
 
 export default function ScheduleScreen({ navigation }: any) {
   const { user } = useAuth();
+  const { colors } = useTheme();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -141,8 +142,8 @@ export default function ScheduleScreen({ navigation }: any) {
       )}
 
       {/* Day View */}
-      <View style={styles.dayView}>
-        <Text style={styles.dayTitle}>
+      <View style={[styles.dayView, { backgroundColor: colors.background }]}>
+        <Text style={[styles.dayTitle, { color: colors.onBackground }]}>
           {selectedDate
             ? new Date(selectedDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
             : 'Select a date to view jobs'}
@@ -165,7 +166,7 @@ export default function ScheduleScreen({ navigation }: any) {
                 <View style={styles.jobRow}>
                   <View style={styles.jobLeft}>
                     <Text style={styles.jobTime}>{item.scheduledTime}</Text>
-                    <Text style={styles.jobCustomer}>{item.customerName}</Text>
+                    <Text style={[styles.jobCustomer, { color: colors.onSurface }]}>{item.customerName}</Text>
                     {user?.role === UserRole.ADMIN && (
                       <Text style={styles.jobTech}>{item.assignedToName}</Text>
                     )}

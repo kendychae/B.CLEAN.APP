@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
-import { Text, Card, Button, Chip, Divider, ActivityIndicator } from 'react-native-paper';
+import { Text, Card, Button, Chip, Divider, ActivityIndicator, useTheme } from 'react-native-paper';
 import { doc, getDoc, collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@config/firebase';
 import { useAuth } from '@contexts/AuthContext';
@@ -15,6 +15,7 @@ type Props = StackScreenProps<CustomersStackParamList, 'CustomerDetail'>;
 export default function CustomerDetailScreen({ route, navigation }: Props) {
   const { customerId } = route.params;
   const { user } = useAuth();
+  const { colors } = useTheme();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,17 +111,17 @@ export default function CustomerDetailScreen({ route, navigation }: Props) {
     .reduce((sum, j) => sum + j.price, 0);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.content}>
       {/* Customer Info */}
       <Card style={styles.card}>
         <Card.Content>
           <View style={styles.nameRow}>
-            <Text style={styles.name}>{customer.name}</Text>
+            <Text style={[styles.name, { color: colors.onSurface }]}>{customer.name}</Text>
             {customer.status === 'dnc' && (
               <Chip style={styles.dncChip} textStyle={styles.dncText}>DNC</Chip>
             )}
           </View>
-          <Text style={styles.address}>
+          <Text style={[styles.address, { color: colors.onSurfaceVariant }]}>
             {customer.address.street}{'\n'}
             {customer.address.city}, {customer.address.state} {customer.address.zipCode}
           </Text>
@@ -183,7 +184,7 @@ export default function CustomerDetailScreen({ route, navigation }: Props) {
       <Divider style={styles.divider} />
 
       {/* Job History */}
-      <Text style={styles.sectionTitle}>Job History ({jobs.length})</Text>
+      <Text style={[styles.sectionTitle, { color: colors.onBackground }]}>Job History ({jobs.length})</Text>
 
       {jobs.length === 0 ? (
         <Text style={styles.emptyText}>No jobs yet</Text>
@@ -197,7 +198,7 @@ export default function CustomerDetailScreen({ route, navigation }: Props) {
             <Card.Content>
               <View style={styles.jobRow}>
                 <View style={styles.jobLeft}>
-                  <Text style={styles.jobDate}>
+                  <Text style={[styles.jobDate, { color: colors.onSurface }]}>
                     {job.scheduledDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </Text>
                   <Text style={styles.jobTech}>By: {job.assignedToName}</Text>
