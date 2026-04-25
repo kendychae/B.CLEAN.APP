@@ -1,14 +1,27 @@
 import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
-import {
-  initializeAuth,
-  getAuth,
-  getReactNativePersistence,
-} from 'firebase/auth';
+import { initializeAuth, getAuth } from 'firebase/auth';
 import type { Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
+
+// `getReactNativePersistence` is exported from `firebase/auth` in some SDK
+// versions and from `firebase/auth/react-native` in others. Resolve at
+// runtime so we work on Firebase v10 and v11+ without a hard import error.
+let getReactNativePersistence: ((s: any) => any) | undefined;
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const fbAuth: any = require('firebase/auth');
+  getReactNativePersistence = fbAuth.getReactNativePersistence;
+} catch { /* ignore */ }
+if (!getReactNativePersistence) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const fbAuthRN: any = require('firebase/auth/react-native');
+    getReactNativePersistence = fbAuthRN.getReactNativePersistence;
+  } catch { /* ignore */ }
+}
 
 // Firebase configuration
 const firebaseConfig = {
@@ -42,11 +55,11 @@ try {
     // Fallback: initialize without RN persistence
     auth = initializeAuth(app);
   }
-} catch (e: any) {
+} catch {
   // On hot reload, auth may already be initialized
   try {
     auth = getAuth(app);
-  } catch (_e) {
+  } catch {
     // Last resort: initialize without persistence
     auth = initializeAuth(app);
   }

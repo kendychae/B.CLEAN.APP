@@ -17,16 +17,14 @@
       "bundleIdentifier": "com.bclean.windowwashing",
       "buildNumber": "1",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "B.CLEAN needs your location to show nearby customers and provide navigation.",
-        "NSLocationAlwaysUsageDescription": "B.CLEAN needs your location to track job locations and provide real-time updates.",
-        "NSCameraUsageDescription": "B.CLEAN needs camera access to capture before/after photos of completed jobs.",
-        "NSPhotoLibraryUsageDescription": "B.CLEAN needs photo library access to save and manage job photos.",
-        "NSCalendarsUsageDescription": "B.CLEAN needs calendar access to sync job schedules with your calendar.",
-        "NSContactsUsageDescription": "B.CLEAN needs contacts access to quickly add customer information.",
-        "NSUserTrackingUsageDescription": "B.CLEAN uses this to deliver relevant ads that help keep the app affordable.",
-        "SKAdNetworkItems": [
-          { "SKAdNetworkIdentifier": "cstr6suwn9.skadnetwork" }
-        ]
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "B.CLEAN uses your location to show nearby customers, route to job sites, and document where work was performed.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "B.CLEAN uses your location while you are working a job to keep your map view, ETA, and arrival timestamp accurate. You can change this at any time in Settings.",
+        "NSCameraUsageDescription": "B.CLEAN uses the camera to capture before-and-after photos of completed cleaning work.",
+        "NSPhotoLibraryUsageDescription": "B.CLEAN reads your photo library so you can attach existing job photos to a customer record.",
+        "NSPhotoLibraryAddUsageDescription": "B.CLEAN saves job photos you capture in the app to your photo library so you have your own backup.",
+        "NSCalendarsUsageDescription": "B.CLEAN syncs your job schedule to your device calendar so reminders appear alongside your other appointments.",
+        "NSContactsUsageDescription": "B.CLEAN can import a contact you choose to quickly create a customer record. The app does not upload your contacts."
       },
       "config": {
         "googleMapsApiKey": ""
@@ -43,11 +41,15 @@
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
         "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES",
         "READ_CALENDAR",
         "WRITE_CALENDAR",
-        "com.google.android.gms.permission.AD_ID"
+        "POST_NOTIFICATIONS",
+        "VIBRATE"
+      ],
+      "blockedPermissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
       ],
       "config": {
         "googleMaps": {
@@ -65,18 +67,11 @@
           "icon": "./assets/notification-icon.png",
           "color": "#ffffff"
         }
-      ],
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-XXXXX~XXXXX",
-          "iosAppId": "ca-app-pub-XXXXX~XXXXX"
-        }
       ]
     ],
     "extra": {
       "eas": {
-        "projectId": "YOUR_EAS_PROJECT_ID"
+        "projectId": ""
       }
     }
   }

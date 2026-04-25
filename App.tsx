@@ -51,13 +51,15 @@ import ErrorBoundary from '@components/ErrorBoundary';
 import { initializeFirebase } from '@config/firebase';
 import { setupNotifications } from '@services/notifications';
 
-// Configure notifications
+// Configure notifications (supports both legacy and new SDK shape)
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
-  }),
+  }) as any,
 });
 
 export default function App() {
