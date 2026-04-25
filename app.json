@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bclean.windowwashing",
@@ -71,8 +73,20 @@
     ],
     "extra": {
       "eas": {
-        "projectId": ""
-      }
-    }
+        "projectId": "42de388c-935d-4bfe-b6ed-909096f2d5d1"
+      },
+      "adsEnabled": false,
+      "admobBannerIdIos": "",
+      "admobBannerIdAndroid": "",
+      "firebaseApiKey": "",
+      "firebaseAuthDomain": "",
+      "firebaseProjectId": "",
+      "firebaseStorageBucket": "",
+      "firebaseMessagingSenderId": "",
+      "firebaseAppId": "",
+      "firebaseMeasurementId": "",
+      "apiUrl": ""
+    },
+    "owner": "kendychae"
   }
 }
